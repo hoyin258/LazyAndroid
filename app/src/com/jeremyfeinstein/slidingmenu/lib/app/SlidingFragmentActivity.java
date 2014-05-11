@@ -1,15 +1,15 @@
 package com.jeremyfeinstein.slidingmenu.lib.app;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.yintro.lazyandroid.app.activity.BaseActivity;
 
 
-public abstract class SlidingFragmentActivity extends Activity implements SlidingActivityBase {
+public abstract class SlidingFragmentActivity extends BaseActivity implements SlidingActivityBase {
 
     private SlidingActivityHelper mHelper;
 

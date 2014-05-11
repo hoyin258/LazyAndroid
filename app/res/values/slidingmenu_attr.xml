@@ -29,4 +29,8 @@
         <attr name="selectorDrawable" format="reference" />
     </declare-styleable>
 
+
+    <dimen name="shadow_width">20dip</dimen>
+    <dimen name="slidingmenu_offset">100dip</dimen>
+
 </resources>

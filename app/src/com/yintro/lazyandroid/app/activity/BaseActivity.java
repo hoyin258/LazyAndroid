@@ -35,9 +35,10 @@ public abstract class BaseActivity extends Activity {
         getData();
     }
 
-
     private int getLayoutIdFromClassName() {
         String name = "activity_" + getClass().getSimpleName().replace("Activity", "").toLowerCase();
         return getResources().getIdentifier(name, "layout", mContext.getPackageName());
     }
+
+
 }
