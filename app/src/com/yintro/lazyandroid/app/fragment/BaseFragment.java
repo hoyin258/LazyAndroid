@@ -32,7 +32,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = inflater.inflate(getLayoutIdFromClassName(), container, false);
+        mView = inflater.inflate(getLayoutId(), container, false);
         assignViews();
         setListeners();
         init();
@@ -66,13 +66,12 @@ public abstract class BaseFragment extends Fragment {
         return mView.findViewById(id);
     }
 
-
-    private int getLayoutIdFromClassName() {
-        return YintroHelper.getLayoutIdFromName(mContext, "fragment", getClass().getSimpleName().replace("Fragment", ""));
-    }
-
     protected void say(String message){
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+    }
+
+    protected int getLayoutId() {
+        return YintroHelper.getLayoutIdFromName(mContext, "fragment", getClass().getSimpleName().replace("Fragment", ""));
     }
 
 }

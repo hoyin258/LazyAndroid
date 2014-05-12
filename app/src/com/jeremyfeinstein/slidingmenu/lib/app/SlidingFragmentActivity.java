@@ -18,9 +18,9 @@ public abstract class SlidingFragmentActivity extends BaseActivity implements Sl
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         mHelper = new SlidingActivityHelper(this);
         mHelper.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
     }
 
     /* (non-Javadoc)

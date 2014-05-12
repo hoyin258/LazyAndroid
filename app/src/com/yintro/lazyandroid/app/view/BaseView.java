@@ -43,8 +43,12 @@ public abstract class BaseView extends FrameLayout{
     // 取得後台資料
     protected abstract void getData();
 
+    // 從資料更改UI
+    public abstract void parse(Object object);
+
     private void initTemplate(){
-        mView = inflate(getContext(),getLayoutIdFromClassName(), this);
+        mContext= getContext();
+        mView = inflate(getContext(),getLayoutId(), this);
         assignViews();
         setListeners();
         init();
@@ -52,7 +56,7 @@ public abstract class BaseView extends FrameLayout{
     }
 
 
-    private int getLayoutIdFromClassName() {
+    protected int getLayoutId() {
         return YintroHelper.getLayoutIdFromName(mContext, "view", getClass().getSimpleName().replace("View", ""));
     }
 }

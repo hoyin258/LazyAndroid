@@ -7,14 +7,13 @@ import android.os.Handler;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.yintro.lazyandroid.app.R;
+import com.yintro.lazyandroid.app.helper.YintroHelper;
 
 /**
  * Created by hoyin on 10/5/14.
  * Yintro.com
  */
 public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivity {
-
-
 
     public abstract Fragment getDefaultFragment();
 
@@ -23,19 +22,31 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setBehindContentView(R.layout.slidingmenu_menu);
+    protected void assignViews() {
+
+    }
+
+    @Override
+    protected void init() {
+
+    }
+
+    @Override
+    protected void beforeSetContentView(Bundle savedInstanceState) {
+        super.beforeSetContentView(savedInstanceState);
+        setBehindContentView(getMenuLayoutId());
         initSlidingMenu();
-        setContentView(R.layout.slidingmenu_content);
+    }
 
-        assignViews();
-        setListeners();
-        init();
-        getData();
-
+    @Override
+    protected void afterOnCreate(Bundle savedInstanceState) {
+        super.afterOnCreate(savedInstanceState);
         assignFragment(savedInstanceState);
+    }
 
+    protected int getMenuLayoutId() {
+        String menuName = getClass().getSimpleName().replace("Activity", "")+"Menu";
+        return YintroHelper.getLayoutIdFromName(mContext, "activity", menuName);
     }
 
     protected void assignFragment(Bundle savedInstanceState) {
@@ -53,13 +64,13 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
                     }
                 }
                 getFragmentManager().beginTransaction()
-                        .add(R.id.content, mCurrentFragment)
+                        .add(R.id.vgContent, mCurrentFragment)
                         .commit();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            mCurrentFragment = getFragmentManager().findFragmentById(R.id.content);
+            mCurrentFragment = getFragmentManager().findFragmentById(R.id.vgContent);
         }
     }
 
@@ -68,7 +79,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
     public void toSamePageWithHistory(Fragment fragment) {
         mCurrentFragment = fragment;
         getFragmentManager().beginTransaction()
-                .replace(R.id.content, mCurrentFragment)
+                .replace(R.id.vgContent, mCurrentFragment)
                 .addToBackStack(fragment.getClass().getSimpleName())
                 .commit();
         runOnUiThread(new Runnable() {
@@ -88,7 +99,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
     public void toSamePage(Fragment fragment) {
         mCurrentFragment = fragment;
         getFragmentManager().beginTransaction()
-                .replace(R.id.content, mCurrentFragment)
+                .replace(R.id.vgContent, mCurrentFragment)
                 .commit();
         runOnUiThread(new Runnable() {
             @Override

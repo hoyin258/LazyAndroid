@@ -45,11 +45,19 @@ public abstract class BaseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-        setContentView(getLayoutIdFromClassName());
+        beforeSetContentView(savedInstanceState);
+        setContentView(getLayoutId());
         assignViews();
         setListeners();
         init();
         getData();
+        afterOnCreate(savedInstanceState);
+    }
+
+    protected void beforeSetContentView(Bundle savedInstanceState) {
+    }
+
+    protected void afterOnCreate(Bundle savedInstanceState) {
     }
 
     @Override
@@ -75,7 +83,7 @@ public abstract class BaseActivity extends Activity {
     }
 
 
-    private int getLayoutIdFromClassName() {
+    protected int getLayoutId() {
         return YintroHelper.getLayoutIdFromName(mContext, "activity", getClass().getSimpleName().replace("Activity", ""));
     }
 
