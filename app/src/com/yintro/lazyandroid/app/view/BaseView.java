@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.yintro.lazyandroid.app.helper.YintroHelper;
+
 /**
  * Created by hoyin on 10/5/14.
  * Yintro.com
@@ -51,7 +53,6 @@ public abstract class BaseView extends FrameLayout{
 
 
     private int getLayoutIdFromClassName() {
-        String name = "view_" + getClass().getSimpleName().replace("View", "").toLowerCase();
-        return getResources().getIdentifier(name, "layout", getContext().getPackageName());
+        return YintroHelper.getLayoutIdFromName(mContext, "view", getClass().getSimpleName().replace("View", ""));
     }
 }

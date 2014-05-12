@@ -12,10 +12,9 @@ import com.yintro.lazyandroid.app.R;
  * Created by hoyin on 10/5/14.
  * Yintro.com
  */
-public abstract  class BaseSlidingFragmentActivity extends SlidingFragmentActivity {
+public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivity {
 
-    public static final String KEY_FRAGMENT_NAME = "fragment_name";
-    public static final String KEY_FRAGMENT_BUNDLE = "fragment_bundle";
+
 
     public abstract Fragment getDefaultFragment();
 
@@ -39,7 +38,7 @@ public abstract  class BaseSlidingFragmentActivity extends SlidingFragmentActivi
 
     }
 
-    protected void assignFragment(Bundle savedInstanceState){
+    protected void assignFragment(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             try {
                 Bundle fragmentBundle = getIntent().getExtras();
@@ -64,7 +63,9 @@ public abstract  class BaseSlidingFragmentActivity extends SlidingFragmentActivi
         }
     }
 
-    public void toSamePage(final Fragment fragment) {
+
+    //會導致Memory 增加
+    public void toSamePageWithHistory(Fragment fragment) {
         mCurrentFragment = fragment;
         getFragmentManager().beginTransaction()
                 .replace(R.id.content, mCurrentFragment)
@@ -84,6 +85,24 @@ public abstract  class BaseSlidingFragmentActivity extends SlidingFragmentActivi
         });
     }
 
+    public void toSamePage(Fragment fragment) {
+        mCurrentFragment = fragment;
+        getFragmentManager().beginTransaction()
+                .replace(R.id.content, mCurrentFragment)
+                .commit();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showContent();
+                    }
+                }, 400);
+            }
+        });
+    }
 
     protected void initSlidingMenu() {
         mSlidingMenu = getSlidingMenu();
@@ -92,5 +111,5 @@ public abstract  class BaseSlidingFragmentActivity extends SlidingFragmentActivi
         mSlidingMenu.setTouchModeAbove(SlidingMenu.LEFT);
         mSlidingMenu.setShadowDrawable(R.drawable.slidingmenu_sidebar_right_shadow);
     }
-    
+
 }

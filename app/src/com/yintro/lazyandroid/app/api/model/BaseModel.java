@@ -7,4 +7,6 @@ import com.activeandroid.Model;
  * Yintro.com
  */
 public class BaseModel extends Model {
+
+
 }

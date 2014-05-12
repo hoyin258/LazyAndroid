@@ -2,7 +2,8 @@ LazyAndroid
 ===========
 
 #懶人Framework
-這個Project 是想用最懶的方法寫Android App
+這個Project 是想用最懶的方法寫Android App，
+罐頭App 的Template。 （修改中)
 
 
 有幾個目標
@@ -97,3 +98,7 @@ LazyAndroid
 5. Support Android 4.0+
 
     不鼓勵向下支援 Android 4.0以下，減低程式的複雜性
+
+6. Build app faster > Performance turning.
+
+    做好隻App,再慢慢Turn

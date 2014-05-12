@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.yintro.lazyandroid.app.helper.YintroHelper;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -54,14 +57,22 @@ public abstract class BaseFragment extends Fragment {
         Runtime.getRuntime().gc();
     }
 
+    //正常不會做任何Action
+    public boolean onBackPressed() {
+        return false;
+    }
+
     protected View findViewById(int id) {
         return mView.findViewById(id);
     }
 
 
     private int getLayoutIdFromClassName() {
-        String name = "fragment_" + getClass().getSimpleName().replace("Fragment", "").toLowerCase();
-        return getResources().getIdentifier(name, "layout", mContext.getPackageName());
+        return YintroHelper.getLayoutIdFromName(mContext, "fragment", getClass().getSimpleName().replace("Fragment", ""));
+    }
+
+    protected void say(String message){
+        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 
 }
